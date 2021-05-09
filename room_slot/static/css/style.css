@@ -11,3 +11,7 @@
     width: 500px;
     height: 300px;
 }
+
+#id_room_type {
+    display: block;
+}

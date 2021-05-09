@@ -1,13 +1,15 @@
 from django.shortcuts import render,redirect
 from .models import Contact
 from .models import Rooms, Booking
+from .forms import Search_By_Type
 from login.models import Customer
 from django.contrib import messages
 from django.http import HttpResponse
 import datetime
 def index(request):
     qs = Rooms.objects.all()
-    return render(request,'booking/index.html',{"rooms": qs})
+    form = Search_By_Type()
+    return render(request,'booking/index.html', {"rooms": qs, "form": form})
 def contact(request):
     if request.method=="GET":
      return render(request,"contact/contact.html",{})

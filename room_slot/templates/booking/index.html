@@ -8,6 +8,13 @@
 <link href="https://fonts.googleapis.com/css?family=Rye&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
+<form action="/your-name/" method="GET">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    <input type="submit" value="Find">
+</form>
+
 <div class="row">
     <div class="center">
         <h3 class="row" style="font-family: 'Gloria Hallelujah', cursive;margin-bottom:7%;margin-top:5%">Choose date
@@ -89,9 +96,9 @@
 
     </div>
 </div>
-    {%if not rooms%}
+    <!-- {%if not rooms%}
     <h1>DSSUSUUAUSUSUKABLYAT</h1>
-    {%endif%}
+    {%endif%} -->
     {% for room in rooms %}
     <div class="cards">
         <div class="card">
