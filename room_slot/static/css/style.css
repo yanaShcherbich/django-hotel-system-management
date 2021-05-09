@@ -1,25 +1,19 @@
-#container{
-    display: flex;
-    flex-direction:column;
-}
+
 .card {
     display: flex;
-    flex-direction:column;
+    
 }
 
 .card-image {
     width: 500px;
     height: 300px;
-    display:inline-block;
 }
 
 .card-image > img {
     
     width: 500px;
     height: 300px;
-    display:inline-block;
-    clear: both;
-}
+    }
 
 #id_room_type {
     display: block;

@@ -12,16 +12,21 @@
 
 <div class="row">
     <div class="center">
-        <h3 class="row" style="font-family: 'Gloria Hallelujah', cursive;margin-bottom:7%;margin-top:5%">Choose date</h3>
+        <h3 class="row" style="font-family: 'Gloria Hallelujah', cursive;margin-bottom:7%;margin-top:5%">Choose criteria</h3>
     </div>
-    
-    <div class="row">
+    <div id="wrapper3" class="col s10 offset-s1 input-field">
         <form action="/your-name/" method="GET">
             {% csrf_token %}
-            {{ form.as_p }}
+            <p class="red-text text-lighten-2"
+                style="font-size:1.4rem;font-family:'Times New Roman'">Select Room Type:</p>
+                {{ form.as_p }}
             
             
         </form>
+    </div>
+    
+    <div class="row">
+        
         <div id="wrapper1" class="col s5 offset-s1 input-field">
             <input type="date" id="start1" class="datepicker-start" />
             <label for="start1" class="red-text text-lighten-2"
