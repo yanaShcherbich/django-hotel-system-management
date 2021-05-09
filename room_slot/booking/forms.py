@@ -1,5 +1,5 @@
 from django import forms
-from .models import Rooms
+from .models import Room
 
 class Search_By_Type(forms.Form):
     CHOICES = (('Single Room', 'Single Room'),('Double Room', 'Double Room'), ('Deluxe Room', 'Deluxe Room'), ('Super Deluxe Room', 'Super Deluxe Room'),)

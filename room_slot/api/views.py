@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from login.models import Customer
-from booking.models import Booking,Rooms
+from booking.models import Booking,Room
 from . import serializers
 
 class CustomerViewset(viewsets.ModelViewSet):
@@ -8,7 +8,7 @@ class CustomerViewset(viewsets.ModelViewSet):
     serializer_class = serializers.UserSerializer
 
 class RoomsViewset(viewsets.ModelViewSet):
-    queryset = Rooms.objects.all()
+    queryset = Room.objects.all()
     serializer_class = serializers.RoomsSerializer
 
 class BookingViewset(viewsets.ModelViewSet):

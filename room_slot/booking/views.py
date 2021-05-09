@@ -1,15 +1,15 @@
 from django.shortcuts import render,redirect
 from .models import Contact
-from .models import Rooms, Booking
+from .models import Room, Booking
 from .forms import Search_By_Type
 from login.models import Customer
 from django.contrib import messages
 from django.http import HttpResponse
 import datetime
 def index(request):
-    qs = Rooms.objects.all()
+    qs = Room.objects.all()
     form = Search_By_Type()
-    return render(request,'booking/index.html', {"rooms": qs, "form": form})
+    return render(request,'booking/index.html', {"Room": qs, "form": form})
 def contact(request):
     if request.method=="GET":
      return render(request,"contact/contact.html",{})
@@ -29,7 +29,7 @@ def book(request):
         start_date=datetime.datetime.strptime(start_date, "%d/%b/%Y").date()
         end_date=datetime.datetime.strptime(end_date, "%d/%b/%Y").date()
         no_of_days=(end_date-start_date).days
-        data=Rooms.objects.filter(is_available=True,no_of_days_advance__gte=no_of_days,start_date__lte=start_date)
+        data=Room.objects.filter(is_available=True,no_of_days_advance__gte=no_of_days,start_date__lte=start_date)
         request.session['no_of_days']=no_of_days
         return render(request,'booking/book.html',{'data':data})
     else:
@@ -41,7 +41,7 @@ def book_now(request,id):
             start_date=request.session['start_date']
             end_date=request.session['end_date']
             request.session['room_no']=id
-            data=Rooms.objects.get(room_no=id)
+            data=Room.objects.get(room_no=id)
             bill=data.price*int(no_of_days)
             request.session['bill']=bill
             roomManager=data.manager.username
@@ -57,7 +57,7 @@ def book_confirm(request):
     end_date=request.session['end_date']
     username=request.session['username']
     user_id=Customer.objects.get(username=username)
-    room=Rooms.objects.get(room_no=room_no)
+    room=Room.objects.get(room_no=room_no)
     amount=request.session['bill']
     start_date=datetime.datetime.strptime(start_date, "%d/%b/%Y").date()
     end_date=datetime.datetime.strptime(end_date, "%d/%b/%Y").date()
@@ -79,7 +79,7 @@ def cancel_room(request,id):
     data.delete()
     return HttpResponse("Booking Cancelled Successfully")
 def delete_room(request,id):
-    data=Rooms.objects.get(id=id)
+    data=Room.objects.get(id=id)
     manager=data.manager.username
     if manager==request.session['username']:
         data.delete()

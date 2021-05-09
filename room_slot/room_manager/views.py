@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from login.models import RoomManager
-from booking.models import Booking,Rooms
+from booking.models import Booking,Room
 from datetime import date
 from django.contrib import messages
 import datetime
@@ -51,7 +51,7 @@ def add_room(request):
             if(not len(error)):
                 manager=request.session['username']
                 manager=RoomManager.objects.get(username=manager)
-                room=Rooms(room_no=room_no,room_type=room_type,price=price,no_of_days_advance=no_of_days_advance,start_date=datetime.datetime.strptime(start_day, "%d %B, %Y").date(),room_image=room_image,manager=manager)
+                room=Room(room_no=room_no,room_type=room_type,price=price,no_of_days_advance=no_of_days_advance,start_date=datetime.datetime.strptime(start_day, "%d %B, %Y").date(),room_image=room_image,manager=manager)
                 room.save()
                 messages.info(request,"Room Added Successfully")
                 return redirect('/manager/dashboard1/')
@@ -62,7 +62,7 @@ def update_room(request,room_no):
       return redirect('manager_login')
     if request.session.get('username',None) and request.session.get('type',None)=='customer':
         return redirect('user_dashboard')
-    room=Rooms.objects.get(room_no=room_no)
+    room=Room.objects.get(room_no=room_no)
     if request.method=="GET":
         return render(request,"manager_dash/edit-room.html",{"room":room})
     else:
