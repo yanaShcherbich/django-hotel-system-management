@@ -32,6 +32,7 @@ def add_room(request):
             room_image=request.FILES.get('room_image',None)
             no_of_days_advance=request.POST['no_of_days_advance']
             start_day=request.POST['start_day']
+            room_description=request.POST['room_description']
             error=[]
             if(len(room_no)<1):
                 error.append(1)
@@ -45,13 +46,16 @@ def add_room(request):
             if(len(no_of_days_advance)<1):
                 error.append(1)
                 messages.warning(request,"Please add valid no of days a user can book room in advance.")
+            if(len(room_description)<1):
+                error.append(1)
+                messages.warning(request,"Please enter room description.")
             if(len(start_day)<3):
                 error.append(1)
                 messages.warning(request,"Please add the starting day")
             if(not len(error)):
                 manager=request.session['username']
                 manager=RoomManager.objects.get(username=manager)
-                room=Room(room_no=room_no,room_type=room_type,price=price,no_of_days_advance=no_of_days_advance,start_date=datetime.datetime.strptime(start_day, "%d %B, %Y").date(),room_image=room_image,manager=manager)
+                room=Room(room_no=room_no,room_type=room_type,price=price,no_of_days_advance=no_of_days_advance,start_date=datetime.datetime.strptime(start_day, "%d %B, %Y").date(),room_image=room_image,manager=manager,room_description=room_description)
                 room.save()
                 messages.info(request,"Room Added Successfully")
                 return redirect('/manager/dashboard1/')
@@ -68,6 +72,7 @@ def update_room(request,room_no):
     else:
             price=request.POST['price']
             no_of_days_advance=request.POST['no_of_days_advance']
+            room_description=request.POST['room_description']
             error=[]
             if(len(price)<=2):
                 error.append(1)
@@ -75,11 +80,15 @@ def update_room(request,room_no):
             if(len(no_of_days_advance)<1):
                 error.append(1)
                 messages.warning(request,"Please add valid no of days a user can book room in advance.")
+            if(len(room_description)<1):
+                error.append(1)
+                messages.warning(request,"Please enter room description.")
             if(not len(error)):
                 manager=request.session['username']
                 manager=RoomManager.objects.get(username=manager)
                 room.price=price
                 room.no_of_days_advance=no_of_days_advance
+                room.room_description=room_description
                 room.save()
                 messages.info(request,"Room Data Updated Successfully")
                 return redirect('/manager/dashboard1/')

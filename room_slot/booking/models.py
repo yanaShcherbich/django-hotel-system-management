@@ -16,6 +16,7 @@ class Room(models.Model):
     no_of_days_advance=models.IntegerField()
     start_date=models.DateField(auto_now=False, auto_now_add=False)
     room_image=models.ImageField(upload_to="media", height_field=None, width_field=None, max_length=None,default='0.jpeg')
+    room_description=models.CharField(max_length=1000,default='Elegant Suite with its modern furniture and comfortable living room with fitted carpet, has a smart TV, hot drink amenities, bathrobes, slippers and luxury toiletries.')
     def __str__(self):
         return "Room No: "+str(self.id)
 '''
