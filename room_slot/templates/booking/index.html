@@ -8,11 +8,10 @@
 <link href="https://fonts.googleapis.com/css?family=Rye&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
-
-
 <div class="row">
+    
     <div class="center">
-        <h3 class="row" style="font-family: 'Gloria Hallelujah', cursive;margin-bottom:7%;margin-top:5%">Choose criteria</h3>
+        <h3 class="row" style="font-family: 'Gloria Hallelujah', cursive;margin-top:5%">Choose criteria</h3>
     </div>
     <div id="wrapper3" class="col s10 offset-s1 input-field">
         <form action="/your-name/" method="GET">
@@ -197,4 +196,7 @@
         }
     })
 </script>
+<h3 class="center" style="font-family: 'Gloria Hallelujah', cursive;margin-bottom:2%;margin-top:5%">Location</h3>
+{{ map|safe }} 
+
 {% endblock %}

@@ -6,10 +6,17 @@ from login.models import Customer
 from django.contrib import messages
 from django.http import HttpResponse
 import datetime
+import folium
+
 def index(request):
     qs = Room.objects.all()
     form = Search_By_Type()
-    return render(request,'booking/index.html', {"Room": qs, "form": form})
+    m = folium.Map(width=1200, height=600, location=[12.034516, 92.676842], zoom_start=12)
+    
+    folium.Marker(location = [12.034516, 92.676842],icon = folium.Icon(color='purple')).add_to(m)
+    m = m._repr_html_()
+    return render(request,'booking/index.html', {"Room": qs, "form": form, "map": m})
+
 def contact(request):
     if request.method=="GET":
      return render(request,"contact/contact.html",{})

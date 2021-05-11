@@ -5,16 +5,20 @@
 }
 
 .card-image {
+    width: inherit;
     width: 500px;
     height: 300px;
 }
 
 .card-image > img {
-    
+    width: inherit;
     width: 500px;
     height: 300px;
+    
     }
 
 #id_room_type {
     display: block;
 }
+
+#mapid { height: 180px; }
