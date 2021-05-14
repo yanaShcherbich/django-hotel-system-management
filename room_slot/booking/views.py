@@ -12,7 +12,6 @@ def index(request):
     qs = Room.objects.all()
     form = Search_By_Type()
     m = folium.Map(width=1200, height=600, location=[12.034516, 92.676842], zoom_start=12)
-    
     folium.Marker(location = [12.034516, 92.676842],icon = folium.Icon(color='purple')).add_to(m)
     m = m._repr_html_()
     return render(request,'booking/index.html', {"Room": qs, "form": form, "map": m})
@@ -32,23 +31,13 @@ def book(request):
     if request.method=="POST":
         start_date=request.POST['start_date']
         end_date=request.POST['end_date']
-        #form = Search_By_Type(request.POST)
         room_type=request.POST['room_type']
-        #print(request.POST)
-        #print(form)
-        #if form.is_valid():
-        #    room_type = form.cleaned_data['room_type']
-        #    print(form.cleaned_data)
-        #else:
-        #    print('pizdec')
-        #    print(form.errors)
         request.session['start_date']=start_date
         request.session['end_date']=end_date
         start_date=datetime.datetime.strptime(start_date, "%d/%b/%Y").date()
         end_date=datetime.datetime.strptime(end_date, "%d/%b/%Y").date()
         no_of_days=(end_date-start_date).days
-        #data=Room.objects.filter(is_available=True,no_of_days_advance__gte=no_of_days,start_date__lte=start_date)
-        
+            
         if room_type != 'All':
             data=Room.objects.filter(is_available=True,no_of_days_advance__gte=no_of_days,start_date__lte=start_date, room_type=room_type)
         else:
