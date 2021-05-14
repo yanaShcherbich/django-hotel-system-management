@@ -12,7 +12,7 @@ def dashboard(request):
   if request.session.get('username',None) and request.session.get('type',None)=='manager':
       username=request.session['username']
       data=RoomManager.objects.get(username=username)
-      room_data=data.rooms_set.all()
+      room_data=data.room_set.all()
       booked=room_data.filter(is_available=False).count()
       print(booked)
       return render(request,"manager_dash/index.html",{"room_data":room_data,"manager":data,"booked":booked})

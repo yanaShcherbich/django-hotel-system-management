@@ -9,23 +9,31 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
 <div class="row">
-    
     <div class="center">
         <h3 class="row" style="font-family: 'Gloria Hallelujah', cursive;margin-top:5%">Choose criteria</h3>
+        <select id="input_room_type">
+            <option value="All">All</option>
+            <option value="Single room">Single room</option>
+            <option value="Double room">Double room</option>
+            <option value="Deluxe room">Deluxe room</option>
+            <option value="Super Deluxe room">Super Deluxe room</option>
+        </select>
     </div>
-    <div id="wrapper3" class="col s10 offset-s1 input-field">
-        <form action="/your-name/" method="GET">
+</div>
+<div id="wrapper3" class="col s10 offset-s1 input-field">
+    <!-- <form action={% url 'book' %} method="POST">
             {% csrf_token %}
             <p class="red-text text-lighten-2"
                 style="font-size:1.4rem;font-family:'Times New Roman'">Select Room Type:</p>
                 {{ form.as_p }}
             
             
-        </form>
-    </div>
-    
+        </form> -->
+    <!-- <input id="input_room_type" type="text" value={form.room_type}> -->
+
+
     <div class="row">
-        
+
         <div id="wrapper1" class="col s5 offset-s1 input-field">
             <input type="date" id="start1" class="datepicker-start" />
             <label for="start1" class="red-text text-lighten-2"
@@ -33,7 +41,8 @@
         </div>
         <div id="wrapper2" class="col s5 input-field">
             <input type="date" id="end1" class="datepicker-end" />
-            <label for="end1" class="red-text text-lighten-2" style="font-size:1.4rem;font-family:'Times New Roman'">End Date</label>
+            <label for="end1" class="red-text text-lighten-2" style="font-size:1.4rem;font-family:'Times New Roman'">End
+                Date</label>
         </div>
         <div class="center">
             <a class="btn red darken-1" href=""
@@ -100,29 +109,29 @@
 
     </div>
 </div>
-    <!-- {%if not Room%}
+<!-- {%if not Room%}
     <h1>DSSUSUUAUSUSUKABLYAT</h1>
     {%endif%} -->
-    <h3 class="center" style="font-family: 'Gloria Hallelujah', cursive;margin-bottom:7%;margin-top:5%">Rooms</h3>
-    {% for room in Room %}
-    <div class="cards">
-        <div class="card">
-            <div class="card-image">
-                <img src="{{room.room_image.url}}" alt="" class="card_image">
-                <a class="btn-floating btn-large halfway-fab waves-effect waves-light red white-text"
-                    style="font-size:0.7rem">&#36; {{room.price}}</a>
-            </div>
-            <div class="card-content">
-                <span class="card-title brown-text">
-                    {{room.room_type}}
-                </span>
-                <span class="card-description black-text">
-                   {{room.room_description}}
-                </span>
-            </div>
+<h3 class="center" style="font-family: 'Gloria Hallelujah', cursive;margin-bottom:7%;margin-top:5%">Rooms</h3>
+{% for room in Room %}
+<div class="cards">
+    <div class="card">
+        <div class="card-image">
+            <img src="{{room.room_image.url}}" alt="" id="card_image">
+            <a class="btn-floating btn-large halfway-fab waves-effect waves-light red white-text"
+                style="font-size:0.7rem">&#36; {{room.price}}</a>
+        </div>
+        <div class="card-content">
+            <span class="card-title brown-text">
+                {{room.room_type}}
+            </span>
+            <span class="card-description black-text">
+                {{room.room_description}}
+            </span>
         </div>
     </div>
-    {% endfor %}
+</div>
+{% endfor %}
 </div>
 
 <script>
@@ -170,10 +179,13 @@
             alert("Please choose a valid date")
         }
         else {
+            var array = ["Volvo", "Saab", "Mercades", "Audi"];
+
             var form = document.createElement("form");
             var element1 = document.createElement("input");
             var element2 = document.createElement("input");
             var element3 = document.createElement("input");
+            var element4 = document.createElement("input");
 
             form.method = "POST";
             form.action = "/book";
@@ -187,16 +199,24 @@
             element2.type = "text"
             element2.value = endDate;
             form.appendChild(element2);
+
             element3.value = '{{csrf_token}}';
             element3.name = "csrfmiddlewaretoken";
             element3.type = "hidden"
             form.appendChild(element3);
+
+            select_types = document.getElementById("input_room_type")
+            element4.value = select_types.value;
+            element4.name = "room_type";
+            element4.type = "hidden"
+            form.appendChild(element4);
+
             document.body.appendChild(form);
             form.submit();
         }
     })
 </script>
 <h3 class="center" style="font-family: 'Gloria Hallelujah', cursive;margin-bottom:2%;margin-top:5%">Location</h3>
-{{ map|safe }} 
+{{ map|safe }}
 
 {% endblock %}

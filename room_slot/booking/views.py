@@ -17,6 +17,7 @@ def index(request):
     m = m._repr_html_()
     return render(request,'booking/index.html', {"Room": qs, "form": form, "map": m})
 
+
 def contact(request):
     if request.method=="GET":
      return render(request,"contact/contact.html",{})
@@ -31,12 +32,27 @@ def book(request):
     if request.method=="POST":
         start_date=request.POST['start_date']
         end_date=request.POST['end_date']
+        #form = Search_By_Type(request.POST)
+        room_type=request.POST['room_type']
+        #print(request.POST)
+        #print(form)
+        #if form.is_valid():
+        #    room_type = form.cleaned_data['room_type']
+        #    print(form.cleaned_data)
+        #else:
+        #    print('pizdec')
+        #    print(form.errors)
         request.session['start_date']=start_date
         request.session['end_date']=end_date
         start_date=datetime.datetime.strptime(start_date, "%d/%b/%Y").date()
         end_date=datetime.datetime.strptime(end_date, "%d/%b/%Y").date()
         no_of_days=(end_date-start_date).days
-        data=Room.objects.filter(is_available=True,no_of_days_advance__gte=no_of_days,start_date__lte=start_date)
+        #data=Room.objects.filter(is_available=True,no_of_days_advance__gte=no_of_days,start_date__lte=start_date)
+        
+        if room_type != 'All':
+            data=Room.objects.filter(is_available=True,no_of_days_advance__gte=no_of_days,start_date__lte=start_date, room_type=room_type)
+        else:
+           data=Room.objects.filter(is_available=True,no_of_days_advance__gte=no_of_days,start_date__lte=start_date)
         request.session['no_of_days']=no_of_days
         return render(request,'booking/book.html',{'data':data})
     else:
