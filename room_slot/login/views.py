@@ -133,9 +133,6 @@ def manager_signup(request):
             if(len(email)==0):
                 error.append(1)
                 messages.warning(request,"Email field can't be empty")
-            if(len(phone_no)!=10):
-                error.append(1)
-                messages.warning(request,"Valid Phone number is a 10 digit-integer.")
             if(len(error)==0):
                 password_hash = make_password(password)
                 r_manager=RoomManager(username=username,password=password_hash,email=email,phone_no=phone_no,profile_pic=profile_pic)

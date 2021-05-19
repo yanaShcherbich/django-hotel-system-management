@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'room_manager',
     'customer',
     'rest_framework',
+    'import_export',
     
 ]
 
